@@ -1,0 +1,663 @@
+<head>
+<style>
+.modal-header-success {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #5cb85c;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+.modal-header-warning {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: orange;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+.modal-header-primary {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #112299;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+body{
+    font-family: 'Lato', sans-serif;
+    background: #f7f7f4;
+}
+.text-center{
+    text-align: center;
+    margin: 1.25rem 0;
+    border-bottom: 1px solid #dadada;
+    padding: 1.25rem 0;
+}
+.radio label input {
+    font-size: 100%;
+}
+.radio-choices {
+    font-size: 18px;
+}
+input[type='radio'] {
+    width: auto;
+    height: 1.4em;
+}
+.radio-choices .radio:nth-of-type(even) {
+    background: #effafa;
+}
+.radio-choices .radio-left {
+    margin-right: 0;
+    padding-right: 0;
+}
+.radio-choices .radio-right {
+    margin-left: 0;
+    padding-left: 0;
+}
+/* media queries specific to alignment of forms 
+   not using form-group Bootstrap to save space
+   so we compensate - some phones looked odd so
+   check before deployment
+ */
+@media screen and (max-width: 540px) {
+    .radio {
+        margin-left: 1rem;
+        font-size: 1.25rem;
+    }
+    .radio-choices .radio-left {
+        float: left;
+        margin-left: -10px;
+        padding-left: 0;
+    }
+    .radio-choices .radio-right {
+        float: right;
+        margin-right: -10px;
+        padding-right: 0;
+    }
+}
+
+#header.header-scrolled {
+    background: #fff;
+    padding: 20px 0;
+    height: 72px;
+    transition: all 0.5s;
+}
+#header {
+    padding: 30px 0;
+    height: 92px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    transition: all 0.5s;
+    z-index: 997;
+    background-color: #fff;
+    box-shadow: 5px 0px 15px #c3c3c3;
+}
+#header #logo h1 {
+    font-size: 34px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+#header #logo h1 a, #header #logo h1 a:hover {
+    color: #000;
+    padding-left: 10px;
+    border-left: 4px solid grey;
+}
+#nav-menu-container {
+    float: right;
+    margin: 0;
+}
+.nav-menu > li {
+    margin-left: 10px;
+}
+.nav-menu > li {
+    float: left;
+}
+.nav-menu li {
+    position: relative;
+    white-space: nowrap;
+}
+.nav-menu, .nav-menu * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+    color: #18d26e;
+}
+.header-scrolled .nav-menu a {
+    color: black;
+}
+.nav-menu li:hover > a, .nav-menu > .menu-active > a {
+    color: #18d26e;
+}
+.nav-menu a {
+    padding: 0 8px 10px 8px;
+    text-decoration: none;
+    display: inline-block;
+    color: #000;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    outline: none;
+}
+#mobile-nav-toggle {
+    display: inline;
+}
+#mobile-nav-toggle {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    margin: 20px 20px 0 0;
+    border: 0;
+    background: none;
+    font-size: 24px;
+    display: none;
+    transition: all 0.4s;
+    outline: none;
+    cursor: pointer;
+}
+#mobile-body-overly {
+    width: 100%;
+    height: 100%;
+    z-index: 997;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+}
+body.mobile-nav-active #mobile-nav {
+    left: 0;
+}
+#mobile-nav {
+    position: fixed;
+    top: 0;
+    padding-top: 18px;
+    bottom: 0;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0.8);
+    left: -260px;
+    width: 260px;
+    overflow-y: auto;
+    transition: 0.4s;
+}
+#mobile-nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+#mobile-nav ul li {
+    position: relative;
+}
+#mobile-nav ul li a {
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    overflow: hidden;
+    padding: 10px 22px 10px 15px;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    outline: none;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+}
+#mobile-nav ul .menu-has-children i.fa-chevron-up {
+    color: #18d26e;
+}
+#mobile-nav ul .menu-has-children i {
+    position: absolute;
+    right: 0;
+    z-index: 99;
+    padding: 15px;
+    cursor: pointer;
+    color: #fff;
+}
+#mobile-nav ul .menu-item-active {
+    color: #18d26e;
+}
+#mobile-nav ul li li {
+    padding-left: 30px;
+}
+
+.menu-has-children ul
+{display: none;}
+
+.sf-arrows .sf-with-ul {
+  padding-right: 30px;
+}
+
+.sf-arrows .sf-with-ul:after {
+  content: "\f107";
+  position: absolute;
+  right: 15px;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  color:black;
+}
+
+.sf-arrows ul .sf-with-ul:after {
+  content: "\f105";
+}
+
+
+.nav-menu li:hover > ul,
+.nav-menu li.sfHover > ul {
+  display: block;
+}
+.nav-menu ul {
+    margin: 4px 0 0 0;
+    padding: 10px;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    background: #fff;
+}
+.nav-menu ul {
+    position: absolute;
+    display: none;
+    top: 100%;
+    left: 0;
+    z-index: 99;
+}
+
+.sf-arrows .sf-with-ul {
+    padding-right: 30px;
+}
+.nav-menu li {
+    position: relative;
+    white-space: nowrap;
+}
+
+
+@media (max-width: 768px){
+#nav-menu-container {
+    display: none;
+}
+
+#mobile-nav-toggle {
+    display: inline;
+}
+}
+</style>
+<script>// Mobile Navigation
+if ($('#nav-menu-container').length) {
+    var $mobile_nav = $('#nav-menu-container').clone().prop({
+      id: 'mobile-nav'
+    });
+    $mobile_nav.find('> ul').attr({
+      'class': '',
+      'id': ''
+    });
+    $('body').append($mobile_nav);
+    $('body').prepend('<button type="button" id="mobile-nav-toggle"><i class="fa fa-bars"></i></button>');
+    $('body').append('<div id="mobile-body-overly"></div>');
+    $('#mobile-nav').find('.menu-has-children').prepend('<i class="fa fa-chevron-down"></i>');
+
+    $(document).on('click', '.menu-has-children i', function(e) {
+      $(this).next().toggleClass('menu-item-active');
+      $(this).nextAll('ul').eq(0).slideToggle();
+      $(this).toggleClass("fa-chevron-up fa-chevron-down");
+    });
+
+    $(document).on('click', '#mobile-nav-toggle', function(e) {
+      $('body').toggleClass('mobile-nav-active');
+      $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+      $('#mobile-body-overly').toggle();
+    });
+
+    $(document).click(function(e) {
+      var container = $("#mobile-nav, #mobile-nav-toggle");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        if ($('body').hasClass('mobile-nav-active')) {
+          $('body').removeClass('mobile-nav-active');
+          $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+          $('#mobile-body-overly').fadeOut();
+        }
+      }
+    });
+  } else if ($("#mobile-nav, #mobile-nav-toggle").length) {
+    $("#mobile-nav, #mobile-nav-toggle").hide();
+  }
+
+  // Smooth scroll for the menu and links with .scrollto classes
+  $('.nav-menu a, #mobile-nav a, .scrollto').on('click', function() {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      if (target.length) {
+        var top_space = 0;
+
+        if ($('#header').length) {
+          top_space = $('#header').outerHeight();
+
+          if( ! $('#header').hasClass('header-fixed') ) {
+            top_space = top_space - 20;
+          }
+        }
+
+        $('html, body').animate({
+          scrollTop: target.offset().top - top_space
+        }, 1500, 'easeInOutExpo');
+
+        if ($(this).parents('.nav-menu').length) {
+          $('.nav-menu .menu-active').removeClass('menu-active');
+          $(this).closest('li').addClass('menu-active');
+        }
+
+        if ($('body').hasClass('mobile-nav-active')) {
+          $('body').removeClass('mobile-nav-active');
+          $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+          $('#mobile-body-overly').fadeOut();
+        }
+        return false;
+      }
+    }
+  });</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+    <script type="text/javascript">
+
+		$(function(){
+                $('#maisobjetos').click(function(){
+                    var nextobjetos = $('#listaobjetos tbody').children('tr').length + 1;                                                                                             
+                    $('#listaobjetos tbody').append('<tr>' +                                                                                                                   
+                        '<td class="linha-left"><input type="text" name="produto' + nextobjetos + '" /></td>' +                                                                                                                              
+                        '</tr>');                                                                                                                                       
+                    $(':hidden #objetos').val(nextobjetos);                                                                                                                             
+                    return false;                                                                                                                                       
+                });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        }); 		
+
+		
+		$(function(){
+                $('#maiscriterios').click(function(){
+                    var next = $('#listacriterios tbody').children('tr').length + 1;                                                                                             
+                    $('#listacriterios tbody').append('<tr>' +                                                                                                                   
+                        '<td class="linha-left"><input type="text" name="criterio' + next + '" /></td>' +                                                                   
+                        '<td class="linha-right"><input type="text" name="peso' + next + '"/></td>' +                                                             
+                        '</tr>');                                                                                                                                                                                                                
+                    $(':hidden #criterios').val(next);                                                                                                                             
+                    return false;                                                                                                                                       
+                });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        }); 			
+    </script>  
+</head>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="js/javascript.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="#intro" class="scrollto">Comparador</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="">Home</a></li>
+          <li><a href="">Contato</a></li>
+          
+          <!-- <li><a href="">Contact</a></li> -->
+        </ul>
+      </nav><!-- #nav-menu-container -->
+
+    </div>
+  </header><!-- #header -->
+  
+ <div style="margin-top: 11em;">
+<div class="container">
+	<div class="row">
+
+<!--========== First Modal ==========-->
+
+<!--========== First Modal ==========-->
+<article class="col-md-4 well">
+    <h3 class="page-header text-center">Cadastrar Objeto<br />
+        <small>Cadastre um objeto para ser comparado.</small>
+    </h3>
+    <br><hr>
+    <div class="text-center">
+        <a class="btn btn-warning" href="#warningModal" data-toggle="modal"><i class="glyphicon glyphicon-briefcase"></i> Cadastrar Objeto</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+		
+			<input type="hidden" class="objetos" value="1" name="quantidade_itens" />
+			<form action="/produtos" method="post">
+				<div class="modal-content">
+					<div class="modal-header modal-header-warning">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h2><i class="glyphicon glyphicon-user"></i>   Cadastrar Objeto</h2>
+					</div>
+					<div class="modal-body">
+						<div class="col-md-12 radio-choices">
+							<div class="col-md-6 col-xs-6 radio-left">
+							
+								
+								
+								<table id="listaobjetos">
+									<thead>
+										<tr>
+											<th>Nome do Objeto</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><input type="text" name="produto1" /><br /></td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<a href="#" id="maisobjetos">Adicionar Item</a>	
+
+							
+								</form>
+							</div>
+						</div><!-- ends col-12 -->
+
+					</div><div class="clearfix"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+						<button type="submit" value="produto" class="btn btn-primary pull-right">Cadastrar</button>
+						
+					</div>
+				</div><!-- /.modal-content -->
+			</form>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</article>
+
+<!--========== Second Modal ==========-->
+<article class="col-md-4 well">
+    <h3 class="page-header text-center">Cadastrar Criterios<br />
+        <small>Cadastre um criterio para ser avaliado.</small>
+    </h3>
+    <br><hr> 
+    <div class="text-center">
+        <a class="btn btn-success" href="#successModal" data-toggle="modal"><i class="glyphicon glyphicon-eye-open"></i> Cadastrar Criterios</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">[ × ]</button>
+                    <h2><i class="glyphicon glyphicon-cloud"></i>   Do you feel like a cloud?</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 radio-choices">
+                        <div class="col-md-6 col-xs-6 radio-left">
+							<form action="/criterios" method="post">
+                            
+						    <table id="listacriterios">
+								<thead>
+									<tr>
+										<th>Criterio</th>
+										<th>Peso</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input type="text" name="criterio1" /><br /></td>
+										<td><input type="test" name="peso1" /><br /></td>
+									</tr>
+								</tbody>
+							</table>
+							<p style="font-size: 12px; background-color: ffffb3;">Obs: Recomenda-se que a soma dos pesos ser igual a 1, 10 ou 100.</p>
+							<input type="hidden" class="criterios" value="1" name="quantidade_itens" />
+							<a href="#" id="enviar">Enviar lista de compras</a>
+							<a href="#" id="maiscriterios">Adicionar Item</a>	
+
+                        
+                            </form>
+                        
+                        </div>
+                    </div><!-- ends col-12 -->
+
+                </div><div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-right" data-next="modal">Next</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</article>
+
+<!--========== Third Modal ==========-->
+<article class="col-md-4 well">
+    <h3 class="page-header text-center">Comparar Obtetos<br />
+        <small>Compare agora qual objeto mais te atende.</small>
+    </h3>
+    <br><hr>
+    <div class="text-center">
+        <a class="btn btn-primary" href="#primaryModal" data-toggle="modal"><i class="glyphicon glyphicon-shopping-cart"></i> Comparar objetos</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="primaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> [ × ] </button>
+                    <h2><i class="glyphicon glyphicon-shopping-cart"></i>   Comparar Objetos</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <form action="" method="" name="">
+                        <table class="table table-condensed"><thead>
+                        <tr>
+                        <th>Objetos</th>
+                        <th>Criterio</th>
+                        <th>Peso</th>
+                        <th>Valor</th>
+                        <th>Subtotal</th>
+                        </tr></thead>
+                        <tbody>
+                        <tr>
+                        <td>
+                        <select name='Xiaomi'>
+                            <option value=''>option a</option><option value=''>option b</option><option value=''>option c</option>
+                        </select>
+                        </td>
+
+                        <td>
+                        <h4>Criterio<h4>
+						<br>
+						<h4>Criterio<h4>
+                        </td>
+
+                        <td>
+                        <input name="price" type="number" class="form-control" value='0.00'>
+						<input name="price" type="number" class="form-control" value='0.00'>
+                        </td>
+
+                        <td>
+                        <input name="" type="number" class="form-control" value='0'>
+						<input name="" type="number" class="form-control" value='0'>
+                        </td>
+
+                        <td>
+                        <input name="" type="number" class="form-control" value='0.00'>
+						 <input name="" type="number" class="form-control" value='0.00'>
+                        </td>
+                        </tr>
+                        </tbody></table>
+                           <p class='grandTotal'Pontuação total: $<input name="" type="number" class="form-control" value='0.00'></p>
+                           <button data-bind='click: addLine'>Add product</button>
+                           <button data-bind='click: save'>Submit order</button>
+                           <a href='#' data-bind='click: $parent.removeLine'>Remove</a>
+                           
+                        </form>
+                      </div>
+                    </div><!-- ends col-12 -->
+
+                </div><div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-right" data-next="modal">Continue Shopping</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</article>
+
+	</div>
+</div>
